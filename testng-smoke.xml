@@ -5,6 +5,8 @@
     <test name="Test Suite">
         <classes>
             <class name="tests.LoginTest"/>
+            <class name="tests.FailTest"/>
+          
             <class name="tests.HomeTest"/>
         </classes>
     </test>
