@@ -4,11 +4,23 @@ public class ConfigReader {
 
     public static String getUsername() {
         String username = System.getenv("SAUCEDEMO_USERNAME");
-        return (username != null) ? username : "default_user";
+
+        if (username == null || username.isEmpty()) {
+            System.out.println("⚠️ Username từ ENV bị null!");
+            return "";
+        }
+
+        return username;
     }
 
     public static String getPassword() {
         String password = System.getenv("SAUCEDEMO_PASSWORD");
-        return (password != null) ? password : "default_pass";
+
+        if (password == null || password.isEmpty()) {
+            System.out.println("⚠️ Password từ ENV bị null!");
+            return "";
+        }
+
+        return password;
     }
 }
