@@ -3,6 +3,8 @@ name: Selenium Matrix CI
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -23,4 +25,13 @@ jobs:
           cache: maven
 
       - name: Run test
-        run: mvn test -Dbrowser=${{ matrix.browser }}
+        run: mvn test -Dbrowser=${{ matrix.browser }} -Denv=dev -DsuiteXmlFile=testng-smoke.xml
+
+      - name: Upload artifact
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-${{ matrix.browser }}
+          path: |
+            target/surefire-reports/
+            target/screenshots/
