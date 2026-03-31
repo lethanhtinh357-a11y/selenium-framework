@@ -1,8 +1,12 @@
+<suite name="Smoke Suite" parallel="methods" thread-count="3">
+<listeners>
+    <listener class-name="common.TestListener"/>
+</listeners>
+    <test name="Test Suite">
+        <classes>
+            <class name="tests.LoginTest"/>
+            <class name="tests.HomeTest"/>
+        </classes>
+    </test>
 
-<suite name="Smoke Suite">
-  <test name="Test">
-    <classes>
-      <class name="tests.TestGoogle"/>
-    </classes>
-  </test>
 </suite>
