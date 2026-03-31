@@ -5,6 +5,7 @@ import common.RetryAnalyzer;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.ConfigReader;
 
 public class LoginTest extends BaseTest {
 
@@ -14,11 +15,18 @@ public class LoginTest extends BaseTest {
         // mở trang demo
         driver.get("https://the-internet.herokuapp.com/login");
 
+        // lấy username/password từ ENV (GitHub Secrets)
+        String username = ConfigReader.getUsername();
+        String password = ConfigReader.getPassword();
+
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password); // sẽ bị *** trên CI
+
         // nhập username
-        driver.findElement(By.id("username")).sendKeys("tomsmith");
+        driver.findElement(By.id("username")).sendKeys(username);
 
         // nhập password
-        driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
+        driver.findElement(By.id("password")).sendKeys(password);
 
         // click login
         driver.findElement(By.cssSelector("button[type='submit']")).click();
