@@ -1,9 +1,7 @@
-name: Selenium CI
+name: Selenium Matrix CI
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
   workflow_dispatch:
 
@@ -11,11 +9,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        browser: [chrome, firefox]
+
     steps:
-      # lấy code
       - uses: actions/checkout@v4
 
-      # cài Java 17
       - uses: actions/setup-java@v4
         with:
           java-version: '17'
@@ -23,14 +23,4 @@ jobs:
           cache: maven
 
       - name: Run test
-        run: mvn test -Dbrowser=chrome -Denv=dev -DsuiteXmlFile=testng-smoke.xml
-
-      # upload artifact khi FAIL
-      - name: Upload artifact
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-artifacts
-          path: |
-            target/surefire-reports/
-            target/screenshots/
+        run: mvn test -Dbrowser=${{ matrix.browser }}
