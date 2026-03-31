@@ -1,0 +1,8 @@
+
+<suite name="Smoke Suite">
+  <test name="Test">
+    <classes>
+      <class name="tests.TestGoogle"/>
+    </classes>
+  </test>
+</suite>
